@@ -14,7 +14,7 @@ df_trans["date_clean"] = df_trans["date"].str.rstrip("0T")
 df_trans["day"] = df_trans["date_clean"].astype(str).str[6:8]
 df_trans["month"] = df_trans["date_clean"].astype(str).str[4:6]
 df_trans["year"] = df_trans["date_clean"].astype(str).str[0:4]
-df_trans["date_new"] = df_trans["day"].astype(str) + "-" + df_trans["month"].astype(str) + "-" + df_trans["year"].astype(str)
+df_trans["date_new"] = df_trans["year"].astype(str) + "-" + df_trans["month"].astype(str)
 
 print(df_trans.head(n = 10), "\n", df_trans.info(verbose = True, show_counts = True))
 
@@ -92,7 +92,7 @@ print(df_trans.head(n = 10), "\n", df_trans.info(verbose = True, show_counts = T
 
 df_final = df_trans[["zipcode", "lat", "long", "date_new", "price", "floors", "bedrooms_new", "bathrooms_new", "sqft_lot", "sqft_living", "basement_bool", "sqft_basement", "sqft_above", "yr_built", "renovated_bool", "yr_renovated", "condition", "view", "waterfront", "grade"]]
 
-df_final.columns = ["zipcode", "lat", "long", "date", "price", "floors", "bedrooms", "bathrooms", "sqft_lot", "sqft_living", "basement", "sqft_basement", "sqft_above", "yr_built", "renovated", "yr_renovated", "condition", "view", "waterfront", "grade"]
+df_final.columns = ["zipcode", "lat", "long", "month", "price", "floors", "bedrooms", "bathrooms", "sqft_lot", "sqft_living", "basement", "sqft_basement", "sqft_above", "yr_built", "renovated", "yr_renovated", "condition", "view", "waterfront", "grade"]
 
 df_final.set_index(["zipcode", "lat", "long"], inplace = True)
 df_final.sort_index(na_position = "last", inplace = True)
