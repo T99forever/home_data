@@ -62,21 +62,8 @@ for value in df_trans["bathrooms"]:
         bathrooms_new_list.append(np.nan)
 df_trans["bathrooms_new"] = bathrooms_new_list
 
-renovated_bool_list = []
-for value in df_trans["yr_renovated"]:
-    if value == 0:
-        renovated_bool_list.append(False)
-    else:
-        renovated_bool_list.append(True)
-df_trans["renovated_bool"] = renovated_bool_list
-
-basement_bool_list = []
-for value in df_trans["sqft_basement"]:
-    if value == 0:
-        basement_bool_list.append(False)
-    else:
-        basement_bool_list.append(True)
-df_trans["basement_bool"] = basement_bool_list
+df_trans["renovated_bool"] = df["yr_renovated"] != 0
+df_trans["basement_bool"] = df["sqft_basement"] != 0
 
 df_trans.loc[df_trans["yr_renovated"] == 0, "yr_renovated"] = -999
 df_trans.loc[df_trans["sqft_basement"] == 0, "sqft_basement"] = -999
@@ -85,12 +72,11 @@ df_trans.replace(-999, np.nan,
 
 print(df_trans["waterfront"].unique())
 
-df_trans.loc[df_trans["waterfront"] == 0, "waterfront"] = False
-df_trans.loc[df_trans["waterfront"] == 1, "waterfront"] = True
+df_trans["waterfront_bool"] = df["waterfront"] != 0
 
 print(df_trans.head(n = 10), "\n", df_trans.info(verbose = True, show_counts = True), "\n", df_trans.columns)
 
-df_final = df_trans[["zipcode", "lat", "long", "date_new", "price", "floors", "bedrooms_new", "bathrooms_new", "sqft_lot", "sqft_living", "basement_bool", "sqft_basement", "sqft_above", "yr_built", "renovated_bool", "yr_renovated", "condition", "view", "waterfront", "grade"]]
+df_final = df_trans[["zipcode", "lat", "long", "date_new", "price", "floors", "bedrooms_new", "bathrooms_new", "sqft_lot", "sqft_living", "basement_bool", "sqft_basement", "sqft_above", "yr_built", "renovated_bool", "yr_renovated", "condition", "view", "waterfront_bool", "grade"]]
 
 df_final.columns = ["zipcode", "lat", "long", "month", "price", "floors", "bedrooms", "bathrooms", "sqft_lot", "sqft_living", "basement", "sqft_basement", "sqft_above", "yr_built", "renovated", "yr_renovated", "condition", "view", "waterfront", "grade"]
 

@@ -21,18 +21,7 @@ print(df.head(n = 10), "\n", df.info(verbose = True, show_counts = True))
 ## SQFT (SCATTER) ##
 
 df_sqft = df.copy()
-for value in df_sqft["sqft_lot"]:
-    if value > 300000:
-        df_sqft.loc[df_sqft["sqft_lot"] == value, "sqft_lot"] = -999
-        df_sqft.loc[df_sqft["sqft_lot"] == value, "sqft_living"] = -999
-        df_sqft.loc[df_sqft["sqft_lot"] == value, "sqft_above"] = -999
-for value in df_sqft["sqft_living"]:
-    if value > 10000:
-        df_sqft.loc[df_sqft["sqft_living"] == value, "sqft_lot"] = -999
-        df_sqft.loc[df_sqft["sqft_living"] == value, "sqft_living"] = -999
-        df_sqft.loc[df_sqft["sqft_living"] == value, "sqft_above"] = -999
-df_sqft.replace(-999, np.nan, 
-                inplace = True) 
+df_sqft = df_sqft.query("sqft_lot < 300000 and sqft_living < 10000")
 
 sqft_scat = ggplot(df_sqft,
                    aes(x = "sqft_lot", 
@@ -54,7 +43,7 @@ sqft_scat2 = ggplot(df_sqft,
                         ) + geom_point(
                         ) + labs(title = "Scatterplot, lot size and living room size",
                                  subtitle = "Lot size and living room size by zipcodes (9800XX through 9819XX)",
-                                 caption = "Outliers removed for x > 300,000 and y > 10,000",
+                                 caption = "Outliers removed for x >= 300,000 and y >= 10,000",
                                  x = "Lot size in square feet",
                                  y = "Living room size in square feet",
                                  color = "Zipcode group")
@@ -156,11 +145,7 @@ print(date_price_line)
 ## PRICE (BOX) ##
 
 df_price = df.copy()
-for value in df_price["price"]:
-    if value > 1000000:
-        df_price.loc[df_price["price"] == value, "price"] = -999
-df_price.replace(-999, np.nan, 
-                inplace = True)
+df_price = df_price.query("price < 1000000")
 
 date_price_box = ggplot(df_price,
                          aes(x = "factor(month)",
@@ -169,7 +154,7 @@ date_price_box = ggplot(df_price,
                                  color = "red", 
                                  fill = "pink"
                              ) + labs(title = "Average house price by month, boxplot",
-                                 caption = "Outliers removed for y > 1,000,000; House price represents price house was sold for",
+                                 caption = "Outliers removed for y >= 1,000,000; House price represents price house was sold for",
                                  y = "Average house price (in USD)"
                                  ) + scale_x_discrete(
                                 name = "Month"
