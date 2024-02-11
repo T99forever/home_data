@@ -24,7 +24,7 @@ df_trans_floors = df_trans.groupby(by = "floors").aggregate(["min", "max"])
 print(df_trans_bedrooms, df_trans_bathrooms, df_trans_floors)
 
 df_trans.loc[df_trans["bedrooms"] == 0, "bedrooms"] = -999
-df_trans.loc[df_trans["bathrooms"] == 0, "bathrooms"] = -999 
+df_trans.loc[df_trans["bathrooms"] == 0, "bathrooms"] = -999
 df_trans.replace(-999, np.nan, 
                  inplace = True)
 
