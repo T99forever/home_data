@@ -126,7 +126,7 @@ date_price_col = ggplot(df_date,
                                       y = "Average house price (in USD; zipcodes combined for total)",
                                       color = "Zipcode group",
                                       fill = "Zipcode group")
-print(date_price_col) 
+print(date_price_col)
 
 date_price_line = ggplot(df_date,
                          aes(x = "factor(month)",
