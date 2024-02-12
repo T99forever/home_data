@@ -12,8 +12,8 @@ df_original = df.copy()
 df["zipcode_9800"] = df["zipcode"].astype(str).str[0:4] + "X"
 df["zipcode_980"] = df["zipcode"].astype(str).str[0:3] + "XX"
 
-df.set_index(["zipcode", "lat", "long"], inplace = True)
-df.sort_index(na_position = "last", inplace = True)
+df = df.set_index(["zipcode", "lat", "long"])
+df = df.sort_index(na_position = "last")
 
 print(df.head(n = 10), "\n", df.info(verbose = True, show_counts = True))
 
@@ -52,8 +52,8 @@ print(sqft_scat2)
 ## PRICE (BAR) ##
 
 df_bedrooms = df.groupby(by = "bedrooms").aggregate(func = "mean", numeric_only = True)
-df_bedrooms.reset_index(inplace = True)
-df_bedrooms.sort_values(by = "price", ascending = True, inplace = True)
+df_bedrooms = df_bedrooms.reset_index()
+df_bedrooms = df_bedrooms.sort_values(by = "price", ascending = True)
 print(df_bedrooms)
 
 bedrooms_price_bar = ggplot(df_bedrooms,
@@ -70,8 +70,8 @@ bedrooms_price_bar = ggplot(df_bedrooms,
 print(bedrooms_price_bar)
 
 df_bathrooms = df.groupby(by = "bathrooms").aggregate(func = "mean", numeric_only = True)
-df_bathrooms.reset_index(inplace = True)
-df_bathrooms.sort_values(by = "price", ascending = True, inplace = True)
+df_bathrooms = df_bathrooms.reset_index()
+df_bathrooms = df_bathrooms.sort_values(by = "price", ascending = True)
 print(df_bathrooms)
 
 bathrooms_price_bar = ggplot(df_bathrooms,
@@ -88,8 +88,8 @@ bathrooms_price_bar = ggplot(df_bathrooms,
 print(bathrooms_price_bar)
 
 df_floors = df.groupby(by = "floors").aggregate(func = "mean", numeric_only = True)
-df_floors.reset_index(inplace = True)
-df_floors.sort_values(by = "price", ascending = True, inplace = True)
+df_floors = df_floors.reset_index()
+df_floors = df_floors.sort_values(by = "price", ascending = True)
 print(df_floors)
 
 floors_price_bar = ggplot(df_floors,
@@ -108,8 +108,8 @@ print(floors_price_bar)
 ## PRICE (LINE) ##
 
 df_date = df.groupby(by = ["zipcode_980", "month"]).aggregate(func = "mean", numeric_only = True)
-df_date.reset_index(inplace = True)
-df_date.sort_values(by = ["zipcode_980", "month"], ascending = True, inplace = True)
+df_date = df_date.reset_index()
+df_date = df_date.sort_values(by = ["zipcode_980", "month"], ascending = True)
 print(df_date)
 
 date_price_col = ggplot(df_date,
