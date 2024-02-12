@@ -8,7 +8,7 @@ print(df.head(n = 10), "\n", df.info(verbose = True, show_counts = True))
 
 df_trans = df.copy()
 
-df_trans.drop(axis = 1, columns = "id", inplace = True)
+df_trans = df_trans.drop(axis = 1, columns = "id")
 
 df_trans["date_clean"] = df_trans["date"].str.rstrip("0T")
 df_trans["day"] = df_trans["date_clean"].astype(str).str[6:8]
@@ -80,8 +80,8 @@ df_final = df_trans[["zipcode", "lat", "long", "date_new", "price", "floors", "b
 
 df_final.columns = ["zipcode", "lat", "long", "month", "price", "floors", "bedrooms", "bathrooms", "sqft_lot", "sqft_living", "basement", "sqft_basement", "sqft_above", "yr_built", "renovated", "yr_renovated", "condition", "view", "waterfront", "grade"]
 
-df_final.set_index(["zipcode", "lat", "long"], inplace = True)
-df_final.sort_index(na_position = "last", inplace = True)
+df_final = df_final.set_index(["zipcode", "lat", "long"])
+df_final = df_final.sort_index(na_position = "last")
 
 print(df_final.head(n = 10), "\n", df_final.info(verbose = True, show_counts = True), "\n", df_final.columns)
 
