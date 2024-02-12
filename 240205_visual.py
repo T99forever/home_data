@@ -51,6 +51,7 @@ print(sqft_scat2)
 
 ## PRICE (BAR) ##
 
+df = df.query("bedrooms != False")
 df_bedrooms = df.groupby(by = "bedrooms").aggregate(func = "mean", numeric_only = True)
 df_bedrooms = df_bedrooms.reset_index()
 df_bedrooms = df_bedrooms.sort_values(by = "price", ascending = True)
@@ -69,6 +70,7 @@ bedrooms_price_bar = ggplot(df_bedrooms,
                                        y = "Average house price (in dollars)")
 print(bedrooms_price_bar)
 
+df = df.query("bathrooms != False")
 df_bathrooms = df.groupby(by = "bathrooms").aggregate(func = "mean", numeric_only = True)
 df_bathrooms = df_bathrooms.reset_index()
 df_bathrooms = df_bathrooms.sort_values(by = "price", ascending = True)
