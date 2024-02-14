@@ -6,7 +6,7 @@ df = pd.read_csv("data\\home_data_trans.csv",
                  sep = ";")
 print(df.head(n = 10), "\n", df.info(verbose = True, show_counts = True))
 df_original = df.copy()
-
+ 
 ### TRANSFORMATION ###
 
 df["zipcode_9800"] = df["zipcode"].astype(str).str[0:4] + "X"
