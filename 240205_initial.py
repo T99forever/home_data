@@ -20,7 +20,7 @@ print(df_trans.head(n = 10), "\n", df_trans.info(verbose = True, show_counts = T
 
 df_trans_bedrooms = df_trans.groupby(by = "bedrooms").aggregate(["min", "max"])
 df_trans_bathrooms = df_trans.groupby(by = "bathrooms").aggregate(["min", "max"])
-df_trans_floors = df_trans.groupby(by = "floors").aggregate(["min", "max"]) 
+df_trans_floors = df_trans.groupby(by = "floors").aggregate(["min", "max"])
 print(df_trans_bedrooms, df_trans_bathrooms, df_trans_floors)
 
 df_trans.loc[df_trans["bedrooms"] == 0, "bedrooms"] = -999
